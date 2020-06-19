@@ -1,16 +1,16 @@
 <template>
   <div>
+    <h1>教务管理系统</h1>
     <ul>
       <li>
-        Username: <input v-model="username">
+        <b>Username:</b> <input v-model="username">
       </li>
       <li>
-        Password: <input v-model="password">
+        <b>Password:</b> <input type="password" v-model="password">
       </li>
       <li>
-        Role: <select v-model="role">
-          <option value="admin">管理员</option>
-          <option value="officer">教务</option>
+        <b>Role:</b> <select v-model="role">
+          <option value="admin">教务</option>
           <option value="teacher">教师</option>
           <option value="student">学生</option>
         </select>
@@ -18,7 +18,6 @@
       <li>  
         <button v-on:click="login">Login</button>
         <button v-on:click="register">Register</button>
-        <button v-on:click="fuck">Fuck</button>
       </li>
       <li>  
         <p>{{ message }}</p>
@@ -29,7 +28,7 @@
 
 <script>
 import axios from "axios";
-import sm2 from "./sm2.js";
+import sm2 from "../assets/sm2.js";
 
 export default {
   name: 'Login',
@@ -43,6 +42,8 @@ export default {
   },
   methods:{
     login: function () {
+      const sm22 = new sm2();
+      sm22.start(0);
       if(this.username==null || this.password==null || this.role==null)
       {
         this.message = "You should fill all blanks";
@@ -127,12 +128,19 @@ export default {
           that.message=JSON.stringify(error.response);
         });
       }
-    },
-
-    fuck: function () {
-      const ss = new sm2();
-      ss.shabi2(55);
-      this.message=ss.shabi();
+    }
+  },
+  watch: {
+    message() {
+      if(this.message=="{\"code\":0,\"msg\":\"login success\"}")
+      {
+        this.$emit("ifloginsuccess", true);
+        this.$emit("loginrole",this.role)
+      }
+      else
+      {
+        this.$emit("ifloginsuccess", false);
+      }
     }
   }
 }
