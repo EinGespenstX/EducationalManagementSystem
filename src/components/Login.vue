@@ -28,7 +28,6 @@
 
 <script>
 import axios from "axios";
-import sm2 from "../assets/sm2.js";
 
 export default {
   name: 'Login',
@@ -42,8 +41,6 @@ export default {
   },
   methods:{
     login: function () {
-      const sm22 = new sm2();
-      sm22.start(0);
       if(this.username==null || this.password==null || this.role==null)
       {
         this.message = "You should fill all blanks";
