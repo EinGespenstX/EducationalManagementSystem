@@ -59,6 +59,7 @@ export default {
         form_login.append("plainText", "1");
         form_login.append("username", this.username);
         form_login.append("password", this.password);
+        form_login.append("role", this.role);
         form_login.append("key", random_key);
         var that = this;
         axios({
